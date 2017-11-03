@@ -1,0 +1,205 @@
+<%= form_for([:admin, @user]) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <h3 class="heading" style="color:white; padding:2px 5px;">PARTICIPANT INFORMATION</h3>
+    <p class="section-label">Registration Code</p>
+    <div class="inline-field">
+        <%= f.text_field :registration_code %>
+    </div>
+    <p class="section-label">Full Name</p>
+    <div class="inline-field">
+        <%= f.text_field :first_name %><br />
+        <%= f.label :first_name %>
+    </div>
+    <div class="inline-field">
+        <%= f.text_field :last_name %><br />
+        <%= f.label :last_name %>
+    </div>
+
+    <p class="section-label">Preferred name on badge (if different)</p>
+    <div class="inline-field">
+        <%= f.text_field :preferred_first_name %><br />
+        <%= f.label :preferred_first_name %>
+    </div>
+    <div class="inline-field">
+        <%= f.text_field :preferred_last_name %><br />
+        <%= f.label :preferred_last_name %>
+    </div>  
+
+    <p class="section-label">Gender</p>
+    <div class="inline-field">
+        <%= f.text_field :gender %>
+    </div>
+
+    <p class="section-label">Email</p>
+    <div class="inline-field">
+        <%= f.text_field :email, type: "email", placeholder: "ex: myname@exxonmobile.com" %>
+    </div>
+
+    <p class="section-label">Mobile phone number ([+][country code][subscriber number])</p>
+    <div class="inline-field">
+        <%= f.text_field :mobile_number %>
+    </div>
+
+    <p class="section-label">Do you own a smart phone/mobile device? If yes, select the type(s):</p>
+     <div class="inline-field">
+        <%= f.check_box :iphone %><span class="devices">iPhone</span><br>
+        <%= f.check_box :android %><span class="devices">Android</span><br>
+        <%= f.check_box :blackberry %><span class="devices">Blackberry</span><br>
+        <%= f.check_box :ipad %><span class="devices">iPad</span><br>
+        <%= f.check_box :tablet %><span class="devices">Tablet</span><br>
+        <%= f.check_box :other %><span class="devices">Other</span><br>
+    </div>
+
+    <p class="section-label">Job Title</p>
+    <div class="inline-field">
+      <%= f.text_field :job_title %>
+    </div>
+
+    <br /><br />
+
+    <h3>Administrative Assistant Information</h3>
+    <p class="section-label">Full Name</p>
+    <div class="inline-field">
+        <%= f.text_field :assistant_first_name %><br />         
+        <%= f.label :assistant_first_name %>
+    </div>
+    <div class="inline-field">
+        <%= f.text_field :assistant_last_name %><br />
+        <%= f.label :assistant_last_name %>
+    </div>
+
+    <p class="section-label">Email</p>
+    <div class="inline-field">
+        <%= f.text_field :assistant_email, type: "email", placeholder: "ex: myname@exxonmobile.com" %><br />
+        <%= f.label :assistant_email %>
+    </div>
+
+    <br /><br />
+
+    <h3>Flight Information (Inbound)</h3>
+    <p class="section-label">Arrival date and time (Texas local time)</p>
+    <div class="inline-field">
+        <%= f.datetime_local_field :arrival_date_and_time, :value => @user.arrival_date_and_time %>
+    </div>
+    <p class="section-label">From where</p>
+    <div class="inline-field">
+        <%= f.text_field :inbound_destination %>
+    </div>
+
+    <br /><br />
+
+    <h3>Flight Information (Outbound)</h3>
+    <p class="section-label">Departure date and time (Texas local time)</p>
+    <div class="inline-field">
+        <%= f.datetime_local_field :departure_date_and_time, :value => @user.departure_date_and_time %>
+    </div>
+    <p class="section-label">To where</p>
+    <div class="inline-field">
+        <%= f.text_field :outbound_destination %>
+    </div>
+    
+    <br /><br />
+
+    <p class="section-label">Will you require a hotel reservation?</p>
+        <%= radio_button(:user, :require_hotel, "Yes", checked: true) %> <%= label_tag(:require_hotel, "Yes", class: "radio-choice") %><br />
+        <%= radio_button(:user, :require_hotel, "No") %> <%= label_tag(:require_hotel, "No", class: "radio-choice") %>
+
+    <br /><br />
+
+    <h4>In case of an emergency please contact</h4>
+    <p class="section-label">Full Name</p>
+    <div class="inline-field">
+        <%= f.text_field :emergency_first_name %><br />         
+        <%= f.label :emergency_first_name %>
+    </div>
+    <div class="inline-field">
+        <%= f.text_field :emergency_last_name %><br />
+        <%= f.label :emergency_last_name %>
+    </div>
+
+    <p class="section-label">Mobile phone number ([+][country code][subscriber number])</p>
+    <div class="inline-field">
+        <%= f.text_field :emergency_mobile_number %>
+    </div>
+
+    <p class="section-label">Relationship</p>
+    <div class="inline-field">
+        <%= f.text_field :emergency_relationship %>
+    </div>
+
+    <br /><br />
+
+    <p class="section-label">Note allergies and special medical conditions:</p>
+    <div class="textarea-field">
+        <%= f.text_area :allergies, rows: "4" %>
+    </div>
+
+    <br />
+
+    <p class="section-label">Ask me anything about...</p>
+    <p class="section-label">Personal</p>
+    <div class="inline-field">
+        <%= f.text_field :personal %><br />
+    </div>
+
+    <p class="section-label">Professional</p>
+    <div class="inline-field">
+        <%= f.text_field :professional %><br />
+    </div>
+
+    <br /><br />
+
+    <p class="section-label">Upload your headshot so your fellow attendees can recognize you! Please use a high res photo of over 2mb in size.</p>
+    <div class="inline-field">
+        <%= f.file_field :photo %>
+    </div>
+    <p id="profile-pic"><%= image_tag @user.photo.url %></p>
+
+    <p class="section-label">Month of Birth</p>
+    <div class="inline-field">
+        <%= f.text_field :month_of_birth %>
+    </div>
+
+    <p class="section-label">Day of Birth</p>
+    <div class="inline-field">
+        <%= f.text_field :day_of_birth %>
+    </div>
+
+    <p class="section-label">Hometown</p>
+    <div class="inline-field">
+        <%= f.text_field :hometown %>
+    </div>
+
+    <p class="section-label">Favorite sports team or player</p>
+    <div class="textarea-field">
+        <%= f.text_area :fav_sports_team_or_player, rows: "4" %>
+    </div>
+
+    <p class="section-label">Favorite song</p>
+    <div class="textarea-field">
+        <%= f.text_area :fav_song, rows: "4" %>
+    </div>
+
+    <p class="section-label">First job or position at ExxonMobil</p>
+    <div class="textarea-field">
+        <%= f.text_area :first_position_at_exxonmobil, rows: "4" %>
+    </div>
+
+    <p class="section-label">What year did you begin working at ExxonMobil?</p>
+    <div class="inline-field">
+        <%= f.text_field :year_started_at_exxonmobil, type: "number", max: "2017", min: "1900" %>
+    </div>
+    <br /><br />
+    <%= f.submit 'Create', class: "submit-button btn" %><br /><br />
+<% end %>

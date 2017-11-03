@@ -1,0 +1,97 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Listing Attendees</h3>
+  <%= hidden_field :search_result, :value => true %>
+  <%= form_tag(admin_users_path, :method => "get", id: "search-form") do %>
+    <br>
+    <div class="search-filter">
+      <h4>Filter By</h4>
+      <select id="choose-search" name="badge[search_option]">
+        <option>Date &amp; Time</option>
+        <option>Name</option>
+      </select>
+      <br>
+    </div>
+    <div id="date-time-filter">
+    <br>
+      <table>
+        <tr>
+          <td><span>Start Date and Time:</span></td>
+          <td><%= datetime_select("badge", "start_time",default: Time.new(2016,11,1,12,00,00,"-04:00"))%></td>
+        </tr>
+        <tr>
+          <td><span>End Date and Time:</span></td>
+          <td><%= datetime_select("badge", "end_time")%></td>
+        </tr>
+      </table>
+      <br>
+    </div>
+    <div id="name-search-filter">
+      <br>
+      <table>
+        <tr>
+          <td><%= text_field_tag("badge[name_search]")%></td>
+        </tr>
+      </table>
+      <br>
+    </div>
+    <%= submit_tag "Search" %>
+  <% end %>
+  <br>
+  <div class="admin-menu">
+    <%= link_to 'New Attendee', new_admin_user_path, class: "admin-menu btn btn-info" %>
+    <%= link_to 'Reports', admin_attendee_reports_path, class: "admin-menu btn btn-info" %>
+    <% if @got_hits && @users.length > 0 %>
+      <a href="" class="admin-menu export_button btn btn-info">Export</a>
+    <% end %>
+  </div>
+  <br><br>
+  <% if params[:commit] == "Search" %>
+    <p><strong><%= @users.length %> Result(s) from search.</strong> </p>
+  <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Email</th>
+        <th>Registration Code</th>
+        <th>Last Updated</th>
+        <th colspan="3">Options</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if params[:commit] != "Search" %>
+      <%= will_paginate @users %>
+      <% end %>
+      <% @users.each do |attendee| %>
+        <tr>
+          <td><%= attendee.first_name %></td>
+          <td><%= attendee.last_name %></td>
+          <td><%= attendee.email.truncate(27, separator: ' ') %></td>
+          <td><%= attendee.registration_code %></td>
+          <td><%= attendee.updated_at.strftime("%b %m, %Y - %I:%M:%S %Z")%></td>
+          <td><%= link_to 'Sync', sync_paperless_admin_user_path(attendee.registration_code), method: :post, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Edit', edit_admin_user_path(attendee.registration_code) %></td>
+          <td><%= link_to 'X', admin_user_path(attendee.registration_code), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    $("#choose-search").change(function() {
+      if (this.value === "Name"){
+        $("#name-search-filter").show();
+        $("#date-time-filter").hide();
+      }
+      else if (this.value === "Date & Time"){
+        $("#name-search-filter").hide();
+        $("#date-time-filter").show();
+      }
+    });
+  </script>
+
+
+
+  

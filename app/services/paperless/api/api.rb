@@ -1,0 +1,3 @@
+module Paperless::Api
+
+end

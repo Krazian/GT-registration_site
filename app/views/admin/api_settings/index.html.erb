@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Listing API Settings</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Event ID</th>
+      <th>Client ID</th>
+      <th>API Auth Token</th>
+      <th>Active?</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @api_settings.each do |api_setting| %>
+      <tr>
+        <td colspan="1"><%= api_setting.url %></td>
+        <td colspan="1"><%= api_setting.event_id %></td>
+        <td colspan="1"><%= api_setting.client_id %></td>
+        <td colspan="1"><%= api_setting.api_auth_token[0..15] %>...</td>
+        <td colspan="1"><%= api_setting.active.to_s.capitalize %></td>
+        <td><%= link_to 'Edit', edit_admin_api_setting_path(api_setting) %></td>
+        <td><%= link_to 'Destroy', admin_api_setting_path(api_setting), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New API Setting', new_admin_api_setting_path, class: "api-submit submit-button btn" %>

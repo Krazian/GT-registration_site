@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+     .image{
+      text-align:center;
+     }
+     .image img{
+      width:100%;
+     }
+      tabletabletable div {display: none !important;}
+      .a5q {display: none !important;}
+    </style>
+  </head>
+  <body>
+<!--     <div class="image">
+      <img src=""/>
+    </div> -->
+    <p style="text-algin:justify;">Dear <%= @user.first_name %> <%= @user.last_name %>, 
+      <br><br>
+      Thank you for completing your registration for ExxonMobil DLM 2017. Your registration was completed on <%= @user.updated_at.in_time_zone('Eastern Time (US & Canada)').to_s.split(" ")[0..1].join(" ")+" EDT" %>.
+
+      <strong>Do not reply directly to this email.</strong>
+    </p>
+  </body>
+</html>

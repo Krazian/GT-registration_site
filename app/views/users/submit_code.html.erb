@@ -1,0 +1,27 @@
+<div id="registration-code-form">
+	<% if browser.ie?(["<9"]) %>
+	<p style="text-align:center;">It looks like you're using an earlier version of this browser. Please update your browser to view this website.<br><br>Thank you!</p>
+	<% else %>
+	<div class="container">
+		<div class="row">
+			<p class="direction col-xs-12">
+				<strong>PLEASE ENTER YOUR REGISTRATION CODE TO ACCESS THE REGISTRATION FORM</strong>
+			</p>
+		</div>
+		<% if flash[:notice] %>
+		<div class="row">
+			<ul class="col-xs-12 notice">
+				 <li><%= flash[:notice] %></li>
+		  </ul>
+		</div>
+		<br>
+		<% end %>
+		<div class="row">
+			<%= form_tag post_user_path, class: "code col-xs-12" do %>
+				<input type="text" name="code" class="fields"/>
+				<input type="submit" class="submit btn btn-info"/>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+</div>

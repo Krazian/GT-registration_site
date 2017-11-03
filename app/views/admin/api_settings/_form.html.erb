@@ -1,0 +1,44 @@
+<%= form_for([:admin, @api_setting]) do |f| %>
+  <% if @api_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@api_setting.errors.count, "error") %> prohibited this api_setting from being saved:</h2>
+
+      <ul>
+      <% @api_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p class="section-label">URL</p>
+  <div class="inline-field">
+    <%= f.text_field :url %>
+  </div>
+  <br />
+  
+  <p class="section-label">Event ID</p>
+  <div class="inline-field">
+    <%= f.number_field :event_id %>
+  </div>
+  <br />
+  
+  <p class="section-label">Client ID</p>
+  <div class="inline-field">
+    <%= f.number_field :client_id %>
+  </div>
+  <br />
+
+  <p class="section-label">API Auth Token</p>
+  <div class="inline-field">
+    <%= f.text_field :api_auth_token %>
+  </div>
+  <br />
+  
+  <p class="section-label">Active? <%= f.check_box :active %></p>
+
+  <br />
+  <div class="actions">
+    <%= f.submit "Save" ,class: "submit-button btn" %>
+  </div>
+  <br />
+<% end %>

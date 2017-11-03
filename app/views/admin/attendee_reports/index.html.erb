@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>CSV FILE NAME</th>
+      <th>ZIP OF PHOTOS</th>
+      <th>TIMESTAMP OF REPORT</th>
+    </tr>
+  </thead>
+
+  <tbody>
+		<% @reports.each do |report| %>
+			<tr>
+				<td><%= report.id %></td>
+				<td><a href="<%= report.csv_link %>"><%= report.csv_file_name %></a></td>
+				<td><a href="<%= report.zip_link %>"><%= report.zip_file_name %></a></td>
+				<td><%= report.created_at.in_time_zone("Eastern Time (US & Canada)").inspect %></td>
+			</tr>
+		<% end %>
+  </tbody>
+</table>
